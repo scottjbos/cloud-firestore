@@ -1,0 +1,20 @@
+<div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+    <div fxFlex="50" fxFlexOffset="50" fxFlexOffset.xs="0">
+      <mat-list role="list">
+        <h3 mat-header>Todo list</h3>
+        <mat-list-item role="listitem" *ngFor="let todo of todo$ | async" [class.completed]="todo.completed">
+          <mat-checkbox [(ngModel)]="todo.completed" (click)="updateTodo(todo)">{{ todo.description }}</mat-checkbox>
+          <button mat-icon-button title="delete todo" (click)="deleteTodo(todo)" color="warn">
+            <mat-icon aria-label="Delete Todo">delete</mat-icon>
+          </button>
+        </mat-list-item>
+      </mat-list>
+  
+      <mat-form-field>
+        <input matInput type="text" [(ngModel)]="todo.description" placeholder="description">
+      </mat-form-field>
+      <button mat-fab color="primary" (click)="addTodo(todo.description)">
+        <mat-icon aria-label="Add Todo">add</mat-icon>
+      </button>
+    </div>
+  </div>
