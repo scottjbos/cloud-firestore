@@ -15,6 +15,7 @@ export class CctransactionComponent implements AfterViewInit {
   dataSource = new MatTableDataSource<Transaction>();
   filterValue = "";
   selection = new SelectionModel<Transaction>(true, []);
+  showSpinner: boolean = true;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -24,9 +25,10 @@ export class CctransactionComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.cctransactionService.getTransactions().subscribe(data => {
       this.dataSource.data = data;      
+      this.showSpinner = false;
     });
     this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.dataSource.sort = this.sort;   
   }
 
   applyFilter(filterValue: string) {

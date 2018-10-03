@@ -5,7 +5,7 @@ import { FormsModule }    from '@angular/forms';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireModule } from 'angularfire2';
 
-import { MatCheckboxModule, MatInputModule, MatButtonModule, MatIconModule, MatListModule, MatCardModule, MatTableModule, MatPaginatorModule, MatSortModule, MatTabsModule } from '@angular/material';
+import { MatCheckboxModule, MatInputModule, MatButtonModule, MatIconModule, MatListModule, MatCardModule, MatTableModule, MatPaginatorModule, MatSortModule, MatTabsModule, MatProgressSpinnerModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 
@@ -18,13 +18,15 @@ import { AppRoutingModule }     from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TodoComponent } from './todo/todo.component';
 import { CctransactionComponent } from './cctransaction/cctransaction.component';
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         DashboardComponent,
         TodoComponent,
-        CctransactionComponent
+        CctransactionComponent,
+        LoaderComponent
     ],
     imports: [
         BrowserModule,
@@ -42,6 +44,7 @@ import { CctransactionComponent } from './cctransaction/cctransaction.component'
         MatPaginatorModule,
         MatSortModule,
         MatTabsModule,
+        MatProgressSpinnerModule,
         FlexLayoutModule,
         AppRoutingModule
     ],

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map'
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Todo } from '../todo/todo.model';
+import { TodoService } from './todo.service.';
 
 @Component({
   selector: 'app-todo',
@@ -10,39 +9,30 @@ import { Todo } from '../todo/todo.model';
   styleUrls: ['./todo.component.css']
 })
 export class TodoComponent implements OnInit {
-  todoCollectionRef: AngularFirestoreCollection<Todo>;
-  todo$: Observable<Todo[]>;
+  todos: Observable<Todo[]>;
   todo:Todo;
+  showSpinner: boolean = true;
 
-  constructor(private db: AngularFirestore) {      
+  constructor(
+    private todoService: TodoService) {      
   }
   
   ngOnInit() {
-    this.todoCollectionRef = this.db.collection<Todo>('todos');
-      this.todo$ = this.todoCollectionRef.snapshotChanges().map(actions => {
-        return actions.map(action => {
-          const data = action.payload.doc.data() as Todo;
-          const id = action.payload.doc.id;
-          return { id, ...data };
-        });
-      });
-      this.todo = {description: '', completed: false};      
+    this.todos = this.todoService.getTodos();
+    this.todos.subscribe(() => this.showSpinner = false);
+    this.todo = {description: '', completed: false};
+
   }
 
   addTodo(todoDesc: string) {
-    if (todoDesc && todoDesc.trim().length) {
-      this.todoCollectionRef.add({ description: todoDesc, completed: false });
-      this.todo = {description: '', completed: false};      
-    }
+    this.todoService.addTodo(todoDesc);
   }
 
   updateTodo(todo: Todo) {
-    this.todoCollectionRef.doc(todo.id).update({ completed: !todo.completed });
+    this.todoService.updateTodo(todo);
   }
   
   deleteTodo(todo: Todo) {
-    this.todoCollectionRef.doc(todo.id).delete();
+    this.todoService.deleteTodo(todo);
   }
-
 }
-

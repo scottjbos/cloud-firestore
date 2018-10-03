@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 
 import { Transaction } from './cctransaction.model';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+
 @Injectable({ providedIn: 'root' })
 export class CctransactionService {
   
