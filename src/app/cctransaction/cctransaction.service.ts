@@ -24,5 +24,9 @@ export class CctransactionService {
       });
     });
   }
+
+  addTransaction(transaction: Transaction) {
+    this.transactionsCollection.add(transaction);    
+  }
   
 }

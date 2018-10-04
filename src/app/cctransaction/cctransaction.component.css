@@ -5,3 +5,13 @@ table {
 tr.mat-footer-row {
   font-weight: bold;
 }
+
+.transaction-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.transaction-full-width {
+  width: 100%;
+}
