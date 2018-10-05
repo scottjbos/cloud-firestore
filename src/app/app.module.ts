@@ -20,6 +20,7 @@ import { TodoComponent } from './todo/todo.component';
 import { CctransactionComponent } from './cctransaction/cctransaction.component';
 import { LoaderComponent } from './loader/loader.component';
 import { CctransactionDialogComponent } from './cctransactiondialog/cctransactiondialog.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
     declarations: [
@@ -57,7 +58,7 @@ import { CctransactionDialogComponent } from './cctransactiondialog/cctransactio
     entryComponents: [
         CctransactionDialogComponent
     ],
-    providers: [],
+    providers: [DatePipe],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

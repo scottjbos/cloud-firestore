@@ -19,8 +19,7 @@ export class CctransactionComponent implements OnInit, AfterViewInit {
 
   showSpinner: boolean = true;
 
-  transaction: Transaction;
-
+  modalTitle: string;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -66,21 +65,25 @@ export class CctransactionComponent implements OnInit, AfterViewInit {
     return this.dataSource.data.map(t => t.amount).reduce((acc, value) => acc + value, 0);
   }
 
-  openAddTransactionDialog(): void {
+  openTransactionDialog(transaction: Transaction): void {
+    this.modalTitle = (transaction == null ? "Add" : "Edit") + " Transaction"
+    if (transaction == null) {
+      transaction = {
+        id: null,
+        amount: 0,
+        description: "",
+        postDate: new Date(),
+        transDate: new Date(),
+        type: "Sale"
+      };
+    }
     const dialogRef = this.dialog.open(CctransactionDialogComponent, {
       width: '500px',
       data: {
-        title: "Add Transaction",
-        transaction: {
-          id: null,
-          amount: 0,
-          description: "",
-          postDate: null,
-          transDate: new Date(),
-          type: "Sale"
-        }
+        title: this.modalTitle,
+        transaction: transaction
       }
-    });
+    });   
 
     dialogRef.afterClosed().subscribe(result => {
       if (result != null) {
@@ -89,17 +92,5 @@ export class CctransactionComponent implements OnInit, AfterViewInit {
         });
       }
     });
-  }
-
-  resetTransaction() {
-    this.transaction =
-      {
-        id: null,
-        amount: 0,
-        description: "",
-        postDate: null,
-        transDate: new Date(),
-        type: "Sale"
-      };
-  }
+  }  
 }

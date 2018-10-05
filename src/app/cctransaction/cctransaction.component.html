@@ -10,7 +10,7 @@
     </button>
   </div>
   <div fxFlex fxLayoutAlign="end">
-    <button mat-raised-button color="primary" (click)="openAddTransactionDialog()">
+    <button mat-raised-button color="primary" (click)="openTransactionDialog()">
       <mat-icon aria-label="Open Add Transaction Dialog">add</mat-icon> Add Transaction
     </button>
   </div>
@@ -62,7 +62,7 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row); openTransactionDialog(row);">
     <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
   </table>
 

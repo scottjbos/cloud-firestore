@@ -13,23 +13,28 @@ import { TransactionType } from '../cctransaction/cctransaction.transactiontype'
 export class CctransactionDialogComponent implements OnInit {
   title: string;
   transaction: Transaction;
-  types: TransactionType[] = [
-    { value: 'Sale', viewValue: 'Sale' },
-    { value: 'Payment', viewValue: 'Payment' }
-  ];
+  transactionTypes: TransactionType[];
 
   constructor(
     private cctransactionService: CctransactionService,
     public dialogRef: MatDialogRef<CctransactionDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data) {
       this.title = data.title;
-      this.transaction = data.transaction;
+      this.transaction = Object.assign({}, data.transaction);
+
+      this.cctransactionService.getTransactionTypes().subscribe(data => {
+        this.transactionTypes = data.filter(x => x.active === true);
+      });
   }
 
   ngOnInit() {}
   
   save(trasaction: Transaction) {
-    this.cctransactionService.addTransaction(trasaction);
+    if (this.transaction.id == null) {
+      this.cctransactionService.addTransaction(trasaction);
+    } else {
+      this.cctransactionService.updateTransaction(this.transaction);
+    }
     this.dialogRef.close(this.transaction);
   }
 

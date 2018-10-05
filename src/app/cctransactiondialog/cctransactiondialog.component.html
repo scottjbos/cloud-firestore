@@ -16,8 +16,8 @@
       <div fxFlex="50%">
         <mat-form-field>
           <mat-select [(ngModel)]="transaction.type" placeholder="Transaction Type" name="type">
-            <mat-option *ngFor="let type of types" [value]="transaction.type">
-              {{type.viewValue}}
+            <mat-option *ngFor="let type of transactionTypes" [value]="type.key">
+              {{type.value}}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -32,11 +32,11 @@
       </div>
       <div fxFlex="50%">
         <mat-form-field class="transaction-full-width">
-          <input type="date" matInput [(ngModel)]="transaction.postDate" placeholder="postDate" name="postDate">
+          <input type="date" matInput [ngModel]="transaction.postDate | date:'yyyy-MM-dd'" placeholder="postDate" name="postDate">
         </mat-form-field>
 
         <mat-form-field class="transaction-full-width">
-          <input type="date" matInput [(ngModel)]="transaction.transDate" placeholder="transDate" name="transDate">
+          <input type="date" matInput [ngModel]="transaction.transDate | date:'yyyy-MM-dd'" placeholder="transDate" name="transDate">
         </mat-form-field>
       </div>
     </div>

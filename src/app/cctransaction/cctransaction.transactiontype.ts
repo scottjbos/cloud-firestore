@@ -1,4 +1,5 @@
 export interface TransactionType {
+	key: string;
 	value: string;
-	viewValue: string;
-  }
+	active: boolean;
+}

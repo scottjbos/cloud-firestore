@@ -1,18 +1,22 @@
 import { Injectable }   from '@angular/core';
 import { Observable }   from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 
 import { Transaction } from './cctransaction.model';
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { TransactionType } from './cctransaction.transactiontype';
 
 @Injectable({ providedIn: 'root' })
 export class CctransactionService {
   
   transactionsCollection: AngularFirestoreCollection<Transaction>;
-  transactions: Observable<Transaction[]>;
+  transactionTypesCollection: AngularFirestoreCollection<TransactionType>;
+  transactions: Observable<Transaction[]>;  
   
-  constructor(private db: AngularFirestore) {
+  constructor(
+    private db: AngularFirestore) {
     this.transactionsCollection = this.db.collection('transactions')
+    this.transactionTypesCollection = this.db.collection('transactiontype')
    }
   
   getTransactions(): Observable<Transaction[]> {
@@ -25,8 +29,22 @@ export class CctransactionService {
     });
   }
 
+  getTransactionTypes(): Observable<TransactionType[]> {
+    return this.transactionTypesCollection.snapshotChanges().map(changes => {
+      return changes.map(a => {
+        const data = a.payload.doc.data() as TransactionType;
+        data.value = a.payload.doc.id;
+        data.key = a.payload.doc.id;
+        return data;
+      });
+    });
+  }
+
   addTransaction(transaction: Transaction) {
     this.transactionsCollection.add(transaction);    
   }
-  
+
+  updateTransaction(transaction: Transaction) {
+    this.transactionsCollection.doc(transaction.id).update(transaction);
+  }  
 }
