@@ -1,0 +1,30 @@
+<div fxLayout fxLayout.xs="column" fxLayoutGap="15px">
+  <div fxFlex fxLayoutAlign="start">
+    <h1 mat-dialog-title>Upload Files</h1>
+  </div>
+  <div fxFlex fxLayoutAlign="end">
+    <button mat-icon-button title="close file upload" (click)="close()">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </div>
+</div>
+
+<input type="file" #file style="display: none" (change)="onFilesAdded()" multiple accept=".csv, text/csv"/>
+<div class="container" fxLayout="column" fxLayoutAlign="space-evenly stretch">
+  <mat-list>
+    <mat-list-item *ngFor="let filestat of fileStats() | async">
+        <mat-icon [hidden]="filestat.status === 'Not_Uploaded'" mat-list-icon>done_outline</mat-icon>
+        <h4 mat-line>{{filestat.file.name}}</h4>
+        <p mat-line>Added {{filestat.count}} transactions.</p> 
+        <mat-progress-bar *ngIf="filestat.status === 'Not_Uploaded'" mode="indeterminate"></mat-progress-bar>  
+    </mat-list-item>
+  </mat-list>  
+</div>
+<div class="action-button">    
+    <button mat-raised-button color="primary" (click)="addFiles()">
+      <mat-icon aria-label="Upload Credit Card Transaction Spreadsheet">cloud_upload</mat-icon> Add File
+    </button>
+    <button mat-raised-button (click)="close()">
+        <mat-icon aria-label="Close">done</mat-icon> Done
+      </button>
+</div>

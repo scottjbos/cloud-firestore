@@ -10,9 +10,14 @@
     </button>
   </div>
   <div fxFlex fxLayoutAlign="end">
-    <button mat-raised-button color="primary" (click)="openTransactionDialog()">
-      <mat-icon aria-label="Open Add Transaction Dialog">add</mat-icon> Add Transaction
-    </button>
+    <div class="button-row">
+      <button mat-raised-button color="accent" (click)="uploadTransactionFileDialog()">
+        <mat-icon aria-label="Upload Credit Card Transaction Spreadsheet">cloud_upload</mat-icon> Upload Transactions
+      </button>
+      <button mat-raised-button color="accent" (click)="openTransactionDialog()">
+          <mat-icon aria-label="Open Add Transaction Dialog">add</mat-icon> Add Transaction
+        </button>
+    </div>
   </div>
 </div>
 

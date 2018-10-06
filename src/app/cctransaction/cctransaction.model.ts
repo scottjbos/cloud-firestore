@@ -1,5 +1,5 @@
-export interface Transaction {
-    id?: string,
+export class Transaction {
+    id?: string;
     amount: number;
     description: string;
     postDate: Date;

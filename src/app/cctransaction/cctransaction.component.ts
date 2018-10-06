@@ -1,10 +1,11 @@
 import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatPaginator, MatSort, MatTableDataSource, MatDialog, MatSnackBar } from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource, MatDialog, MatSnackBar, MatBottomSheet } from '@angular/material';
 
 import { Transaction } from './cctransaction.model';
 import { CctransactionService } from './cctransaction.service';
 import { CctransactionDialogComponent } from '../cctransactiondialog/cctransactiondialog.component';
+import { CctransactionFileuploadBottomsheetComponent } from '../cctransactionfileuploadbottomsheet/cctransactionfileuploadbottomsheet.component';
 
 @Component({
   selector: 'app-cctransaction',
@@ -27,7 +28,8 @@ export class CctransactionComponent implements OnInit, AfterViewInit {
   constructor(
     private cctransactionService: CctransactionService,
     public dialog: MatDialog,
-    public snackBar: MatSnackBar) { }
+    public snackBar: MatSnackBar,
+    private bottomSheet: MatBottomSheet) { }
 
   ngOnInit() { }
 
@@ -65,7 +67,7 @@ export class CctransactionComponent implements OnInit, AfterViewInit {
     return this.dataSource.data.map(t => t.amount).reduce((acc, value) => acc + value, 0);
   }
 
-  openTransactionDialog(transaction: Transaction): void {
+  openTransactionDialog(transaction: Transaction) {
     this.modalTitle = (transaction == null ? "Add" : "Edit") + " Transaction"
     if (transaction == null) {
       transaction = {
@@ -91,6 +93,18 @@ export class CctransactionComponent implements OnInit, AfterViewInit {
           duration: 2000,
         });
       }
-    });
+    });    
   }  
+
+  uploadTransactionFileDialog() {
+    const bottomSheetRef = this.bottomSheet.open(CctransactionFileuploadBottomsheetComponent);
+
+    bottomSheetRef.afterDismissed().subscribe(result => {
+      if (result != null) {
+        this.snackBar.open("Added " + result + " Transactions", "Success", {
+          duration: 2000,
+        });
+      }
+    })
+  };
 }

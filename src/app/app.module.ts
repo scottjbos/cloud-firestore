@@ -5,7 +5,8 @@ import { FormsModule }    from '@angular/forms';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireModule } from 'angularfire2';
 
-import { MatCheckboxModule, MatInputModule, MatButtonModule, MatIconModule, MatListModule, MatCardModule, MatTableModule, MatPaginatorModule, MatSortModule, MatTabsModule, MatProgressSpinnerModule, MatFormFieldModule, MatSelectModule, MatDialogModule, MatSnackBarModule, } from '@angular/material';
+import { MatCheckboxModule, MatInputModule, MatButtonModule, MatIconModule, MatListModule, MatCardModule, MatTableModule, MatPaginatorModule, MatSortModule, 
+    MatTabsModule, MatProgressSpinnerModule, MatFormFieldModule, MatSelectModule, MatDialogModule, MatSnackBarModule, MatBottomSheetModule, MatBadgeModule, MatProgressBarModule, } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 
@@ -21,6 +22,8 @@ import { CctransactionComponent } from './cctransaction/cctransaction.component'
 import { LoaderComponent } from './loader/loader.component';
 import { CctransactionDialogComponent } from './cctransactiondialog/cctransactiondialog.component';
 import { DatePipe } from '@angular/common';
+import { CctransactionFileuploadBottomsheetComponent } from './cctransactionfileuploadbottomsheet/cctransactionfileuploadbottomsheet.component';
+import { PapaParseModule } from 'ngx-papaparse';
 
 @NgModule({
     declarations: [
@@ -29,7 +32,8 @@ import { DatePipe } from '@angular/common';
         TodoComponent,
         CctransactionComponent,
         LoaderComponent,
-        CctransactionDialogComponent
+        CctransactionDialogComponent,
+        CctransactionFileuploadBottomsheetComponent
     ],
     imports: [
         BrowserModule,
@@ -52,11 +56,16 @@ import { DatePipe } from '@angular/common';
         MatSelectModule,
         MatDialogModule,
         MatSnackBarModule,
+        MatBottomSheetModule,
+        MatProgressBarModule,
+        MatBadgeModule,
         FlexLayoutModule,
-        AppRoutingModule
+        AppRoutingModule,
+        PapaParseModule
     ],
     entryComponents: [
-        CctransactionDialogComponent
+        CctransactionDialogComponent,
+        CctransactionFileuploadBottomsheetComponent
     ],
     providers: [DatePipe],
     bootstrap: [AppComponent]

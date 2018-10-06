@@ -15,7 +15,7 @@ export class CctransactionService {
   
   constructor(
     private db: AngularFirestore) {
-    this.transactionsCollection = this.db.collection('transactions')
+    this.transactionsCollection = this.db.collection('transaction')
     this.transactionTypesCollection = this.db.collection('transactiontype')
    }
   
